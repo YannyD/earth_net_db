@@ -1,5 +1,11 @@
 {
   "projects": {
     "default": "homeearthnet"
+  },
+  "targets": {},
+  "etags": {
+    "homeearthnet": {
+      "extensionInstances": {}
+    }
   }
 }
