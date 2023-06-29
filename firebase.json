@@ -19,13 +19,13 @@
   ],
   "emulators": {
     "auth": {
-      "port": 9000
+      "port": 6060
     },
     "functions": {
-      "port": 8000
+      "port": 5050
     },
     "database": {
-      "port": 7000
+      "port": 4050
     },
     "ui": {
       "enabled": true
