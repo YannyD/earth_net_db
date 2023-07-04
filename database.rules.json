@@ -2,6 +2,7 @@
   "rules": {
     "users": {
       "$uid": {
+        ".write": "auth !=null",
         ".read": "auth !=null"
       }
     }

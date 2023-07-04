@@ -19,13 +19,16 @@
   ],
   "emulators": {
     "auth": {
-      "port": 6060
+      "host": "localhost",
+      "port": 6001
     },
     "functions": {
+      "host": "localhost",
       "port": 5050
     },
     "database": {
-      "port": 4050
+      "host": "localhost",
+      "port": 4001
     },
     "ui": {
       "enabled": true

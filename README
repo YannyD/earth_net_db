@@ -1,0 +1,7 @@
+## Start emulator:
+
+firebase emulators:start
+
+## Start emulator with auth imports:
+
+firebase emulators:start --import emulatorData --export-on-exit
