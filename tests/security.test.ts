@@ -16,6 +16,7 @@ import {
   initializeTestEnvironment,
   RulesTestEnvironment,
 } from "@firebase/rules-unit-testing";
+import assert from "assert";
 import { describe, beforeEach } from "mocha";
 import { ref, set, get } from "firebase/database";
 describe("earth security rules tests", () => {
@@ -26,21 +27,22 @@ describe("earth security rules tests", () => {
     testEnv = await initializeTestEnvironment({
       projectId: "homearthnet",
       database: {
-        host: "localhost",
-        port: 4050,
+        host: "127.0.0.1",
+        port: 4001,
       },
     });
   });
 
   it("should not allow read access to all users", async () => {
-    const alice = testEnv.authenticatedContext("alice");
-    const db = alice.database();
-    const permissionRef = ref(db, "/permissions");
-    const permissionSnapshot = await get(permissionRef);
-    console.log("permissionSnapshot:", permissionSnapshot);
-    await assertSucceeds(set(permissionRef, { alice: true }));
+    const alice = testEnv.unauthenticatedContext();
+    const db = alice.database("http://127.0.0.1:4001/?ns=homeearthnet");
+    get(ref(db, "/users")).then((snapshot) => {
+      console.log("snapshot:", snapshot.val());
+    });
+    await assertFails(get(ref(db, "/users")));
   });
 });
+
 /*
 Creating and configuring a RulesTestEnvironment with a call to initializeTestEnvironment.
 */
