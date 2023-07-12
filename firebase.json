@@ -27,6 +27,7 @@
       "port": 5050
     },
     "database": {
+      "rules": "database.rules.json",
       "host": "localhost",
       "port": 4001
     },

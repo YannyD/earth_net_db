@@ -17,29 +17,28 @@ import {
   RulesTestEnvironment,
 } from "@firebase/rules-unit-testing";
 import assert from "assert";
-import { describe, beforeEach } from "mocha";
+import { describe, beforeEach, before } from "mocha";
 import { ref, set, get } from "firebase/database";
+import { readFileSync, createWriteStream } from "node:fs";
+
 describe("earth security rules tests", () => {
   let testEnv: RulesTestEnvironment;
 
-  beforeEach(async () => {
+  before(async () => {
     //uses .env variable for FIREBASE_EMULATOR_HOST
     testEnv = await initializeTestEnvironment({
       projectId: "homearthnet",
       database: {
         host: "127.0.0.1",
         port: 4001,
+        rules: readFileSync("database.rules.json", "utf8"),
       },
     });
   });
 
   it("should not allow read access to all users", async () => {
-    const alice = testEnv.unauthenticatedContext();
-    const db = alice.database("http://127.0.0.1:4001/?ns=homeearthnet");
-    get(ref(db, "/users")).then((snapshot) => {
-      console.log("snapshot:", snapshot.val());
-    });
-    await assertFails(get(ref(db, "/users")));
+    const unAuthDb = testEnv.unauthenticatedContext().database();
+    await assertFails(get(ref(unAuthDb, "/users")));
   });
 });
 
