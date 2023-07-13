@@ -1,6 +1,19 @@
 {
   "rules": {
-    ".write": "false",
-    ".read": "false"
+    "permissions":
+    {".write": "false",
+      "$key":{
+        ".read": "$key === auth.uid"
+      }
+    },
+    "properties":{
+      ".write": "false",
+      ".read": "root.child('users').val() !== null"
+      },
+    "users":{
+      "$uid": {
+        ".read": "$uid === auth.uid"
+      }
+    }
   }
 }
